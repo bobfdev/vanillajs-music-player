@@ -11,7 +11,7 @@ body {
     /* gradient for background with 3 arguments in () */
     background-image: linear-gradient(
         0deg, 
-        rgb(247, 247, 247) 13.8%,
+        rgb(247, 247, 247) 33.8%,
         rgb(252, 221, 221) 92%
         );
     /* Flexbox props */
@@ -47,7 +47,7 @@ body {
     width: 20px;
     position: absolute;
     left: 50%;
-    bottom: 50%;
+    bottom: 60%;
     border-radius: 50%;
     /* -50% on x-axis, -50% on y-axis to move object to the center */
     transform: translate(-50%, -50%);

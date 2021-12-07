@@ -81,6 +81,35 @@ function pauseSong() {
     audio.pause()
 }
 
+// updates the progress bar as the song plays
+// updateProgress function will take in an 'event' object
+function updateProgress(e) {
+    // console.log(e.srcElement.currentTime)
+    // console.log(e.srcElement.duration)
+    // deconstruct both "currentTime" and "duration" values
+    const { currentTime, duration } = e.srcElement
+    // set progress bar percentage
+    const progressPercent = (currentTime / duration) * 100
+    // set width of the progress bar as song plays
+    progress.style.width = `${progressPercent}%`
+}
+
+// updates to progress bar when clicked at a particular location
+// setProgress function will take in an 'event' object
+function setProgress(e) {
+    // update the width of the progress bar from where it was clicked
+    const width = this.clientWidth 
+    // console.log(width)
+    // update progress width on the x-axis where clicked
+    const clickX = e.offsetX
+    // console.log(clickX) 
+    // Get duration amount of progress bar when clicked through audio element
+    const duration = audio.duration
+
+    // set current time of song from location of where the click was on the progress bar
+    audio.currentTime = (clickX / width) * duration
+}
+
 // Event listeners
 playBtn.addEventListener('click', () => {
     const isPlaying = musicContainer.classList.contains('play')
@@ -95,3 +124,15 @@ playBtn.addEventListener('click', () => {
 // Change song events
 prevBtn.addEventListener('click', prevSong)
 nextBtn.addEventListener('click', nextSong)
+
+// When the song is playing the "timeupdate" event will be called and will call a function called updateProgress
+// For the progress bar percentage
+audio.addEventListener('timeupdate', updateProgress)
+
+// When the song progress bar is clicked the song progress with update to a function called setProgress
+// To go anywhere in the song time when a location on the progress bar is clicked
+progressContainer.addEventListener('click', setProgress)
+
+// When song ends automatically move on to the next song on the track list
+// When current song has 'ended' we want to call the nextSong function
+audio.addEventListener('ended', nextSong)
