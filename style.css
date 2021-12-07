@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+    font-family: 'Josefin Sans', sans-serif;
+    /* gradient for background with 3 arguments in () */
+    background-image: linear-gradient(
+        0deg, 
+        rgb(247, 247, 247) 13.8%,
+        rgb(252, 221, 221) 92%
+        );
+    /* Flexbox props */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.music-container {
+    background-color: #fff;;
+    border-radius: 15px;
+    box-shadow: 0 20px 20px 0 rgba(252, 169, 169, 0.6);
+    display: flex;
+    /* (20px) top, (30px) bottom */
+    padding: 20px 30px;
+    position: relative;
+    /* (100px) top, (0px) bottom */
+    margin: 100px 0;
+    z-index: 10;
+}
+
+.img-container {
+    position: relative;
+    width: 110px;
+}
+
+/* :: = sudo selector */
+.img-container::after {
+    content: '';
+    background-color: #fff;
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    left: 50%;
+    bottom: 50%;
+    border-radius: 50%;
+    /* -50% on x-axis, -50% on y-axis to move object to the center */
+    transform: translate(-50%, -50%);
+}
+
+.img-container img {
+    width: inherit;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+    bottom: 0;
+    left: 0; 
+
+    /* rotates object at a 3 sec pac linear infinity */
+    animation: rotate 3s linear infinite;
+    /* pauses animation of object default */
+    animation-play-state: paused;
+}
+
+/* if music container has a "play" class on it then take the img container img to "running" */
+.music-container.play .img-container img {
+    animation-play-state: running;
+}
+
+/* rotates object to spin from 0 to 360 degrees */
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.action-btn {
+    background-color: #fff;
+    border: 0;
+    color: #dfdbdf;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 10px;
+    margin: 0 20px;
+}
+
+.action-btn-big {
+    color: #cdc2d0;
+    font-size: 30px;
+}
+
+/* removers outline around action buttons */
+.action-btn:focus {
+    outline: 0;
+}
+
+.music-info {
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 15px 15px 0 0;
+    padding: 10px 10px 10px 150px;
+    position: absolute;
+    top: 0;
+    left: 20px;
+    /* calculation */
+    width: calc(100% - 40px);
+    opacity: 0;
+    /* on y-axis */
+    transform: translateY(0%);
+    /* moves song title pop-up up and down */
+    transition: transform 0.3s ease-in, opacity 0.3s ease-in;
+}
+
+.music-info h4 {
+    margin: 0;
+}
+
+/* when music is playing */
+.music-container.play .music-info {
+    opacity: 1;
+    /* bring up on y-axis */
+    transform: translateY(-100%);
+
+}
+
+.progress-container {
+    background: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px 0;
+    height: 4px;
+    width: 100%;
+}
+
+/* progress bar for when song plays */
+.progress {
+    background-color: #fe8daa;
+    border-radius: 5px;
+    height: 100%;
+    width: 0%;
+    /* moves progress bar as songs plays */
+    transition: width 0.1s linear;
+}
